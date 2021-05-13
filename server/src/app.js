@@ -43,20 +43,26 @@ if (config.environment === 'development') {
   app.use(compression()); // G-Zip compression
 }
 
-app.use(express.urlencoded({ extended: false })); // Parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true })); // Parse application/x-www-form-urlencoded
 app.use(express.json()); // Parse application/json
 app.use(helmet()); // Security
 app.use(hpp()); // Prevent HTTP Parameter Pollution
 
-// Define API middlewares
-app.use('/api', limiter); // Apply the limit to all API requests
-app.use('/api', responseStatus); // HTTP response status is coherent with message status
+// Define custom middleware
+if(config.useStatic) {
+  // Define API middlewares
+  app.use('/api', limiter); // Apply the limit to all API requests
+  app.use('/api', responseStatus); // HTTP response status is coherent with message status
+}
+else {
+  // Use the custom middlewares on all requests
+  app.use('/', limiter); // Apply the limit to all API requests
+  app.use('/', responseStatus); // HTTP response status is coherent with message status
+}
 
 // Define routes -> TODO: write here your code
 app.use('/api/v1', apiRoute);
 
-// Handle '*' on api
-app.use('/api', apiNotFound); // If a request for the /api/* has not been server => return 404
 
 if (config.useStatic) {
   // Define static folder
@@ -66,6 +72,13 @@ if (config.useStatic) {
   app.get('*', (req, res) => {
     res.sendFile('index.html', { root: config.staticFolder });
   });
+
+  // Handle '*' on /api
+  app.use('/api', apiNotFound); // If a request for the /api/* has not been served => return 404
+}
+else {
+  // Handle '*' on all requests (/)
+  app.use('/', apiNotFound); // If a request for the /* has not been served => return 404
 }
 
 if (config.useHttp) {

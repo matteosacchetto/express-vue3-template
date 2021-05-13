@@ -9,15 +9,24 @@ const config = require('./config.js');
 // Create the logger
 const logger = winston.createLogger({
   level: 'info',
-  format: winston.format.json(),
   transports: config.useStdout
     ? []
     : [
         new winston.transports.File({
-          filename: path.join(`${root}`, '..', 'logs', 'error.log'),
+          format: winston.format.combine(
+            // We want to log timestamp + json
+            winston.format.timestamp(),
+            winston.format.json()
+          ),
+          filename: path.join(`${root}`, 'logs', 'error.log'),
           level: 'error',
         }),
         new winston.transports.File({
+          format: winston.format.combine(
+            // We want to log timestamp + json
+            winston.format.timestamp(),
+            winston.format.json()
+          ),
           filename: path.join(`${root}`, '..', 'logs', 'app.log'),
         }),
       ],
