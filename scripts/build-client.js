@@ -2,7 +2,6 @@ const execa = require('execa');
 const path = require('path');
 const { Listr } = require('listr2');
 const { exit } = require('process');
-const { pathOpenSSL } = require('../server/src/lib/config.js');
 
 const optimizeBuild = require('./lib/optimize-build-client.js');
 
