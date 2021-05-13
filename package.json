@@ -1,0 +1,50 @@
+{
+  "name": "express-vue3-template",
+  "version": "0.0.1",
+  "description": "Express + Vue3 template",
+  "private": true,
+  "scripts": {
+    "install": "(cd client && npm install) && (cd server && npm install)",
+    "start": "(node scripts/build-client.js) && (cd server && npm start)",
+    "build": "node scripts/build-client.js",
+    "lint": "(cd client && npm run lint) && (cd server && npm run lint)",
+    "fix": "(cd client && npm run fix) && (cd server && npm run fix)",
+    "lint-local": "npx eslint -f codeframe --resolve-plugins-relative-to . scripts/",
+    "fix-local": "npx eslint -f codeframe --fix --resolve-plugins-relative-to . scripts/",
+    "docker-build": "node scripts/docker-build.js",
+    "docker-run-dev": "node scripts/docker-run-dev.js",
+    "docker-run-prod": "node scripts/docker-run-prod.js",
+    "docker-stop": "node scripts/docker-stop.js",
+    "docker-start": "node scripts/docker-start.js",
+    "docker-rm": "node scripts/docker-rm.js",
+    "docker-rmi": "node scripts/docker-rmi.js"
+  },
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "contributors": [],
+  "license": "",
+  "keywords": [
+    "nodejs",
+    "express",
+    "javascript",
+    "vue",
+    "tailwind"
+  ],
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "execa": "^5.0.0",
+    "listr2": "^3.8.2",
+    "strip-ansi": "^6.0.0"
+  }
+}
