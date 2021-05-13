@@ -49,12 +49,11 @@ app.use(helmet()); // Security
 app.use(hpp()); // Prevent HTTP Parameter Pollution
 
 // Define custom middleware
-if(config.useStatic) {
+if (config.useStatic) {
   // Define API middlewares
   app.use('/api', limiter); // Apply the limit to all API requests
   app.use('/api', responseStatus); // HTTP response status is coherent with message status
-}
-else {
+} else {
   // Use the custom middlewares on all requests
   app.use('/', limiter); // Apply the limit to all API requests
   app.use('/', responseStatus); // HTTP response status is coherent with message status
@@ -62,7 +61,6 @@ else {
 
 // Define routes -> TODO: write here your code
 app.use('/api/v1', apiRoute);
-
 
 if (config.useStatic) {
   // Define static folder
@@ -75,8 +73,7 @@ if (config.useStatic) {
 
   // Handle '*' on /api
   app.use('/api', apiNotFound); // If a request for the /api/* has not been served => return 404
-}
-else {
+} else {
   // Handle '*' on all requests (/)
   app.use('/', apiNotFound); // If a request for the /* has not been served => return 404
 }
