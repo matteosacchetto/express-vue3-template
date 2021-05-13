@@ -255,7 +255,7 @@ This script will take care of **building (only if necessary)  the Vue3 applicati
 
 ### Build
 
-### 
+ 
 
 ```bash
 npm run build
