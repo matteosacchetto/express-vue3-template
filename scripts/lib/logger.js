@@ -5,6 +5,10 @@ const stripAnsi = require('strip-ansi');
 
 const logger = {
   info: (data, file) => {
+    if (data.constructor === Array) {
+      data = data.join();
+    }
+    
     const dir = 'logs';
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
@@ -19,6 +23,10 @@ const logger = {
     console.log(`\nLog has been written to -> ${chalk.bold.cyan(filename)}`);
   },
   error: (data, file) => {
+    if (data.constructor === Array) {
+      data = data.join();
+    }
+    
     const dir = 'logs';
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir);
