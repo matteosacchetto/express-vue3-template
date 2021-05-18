@@ -13,7 +13,7 @@ NodeJS template for building a **Express + Vue3** based application
   + [Modify the package.json](#modify-the-packagejson)
   + [Install the dependencies](#install-the-dependencies)
   + [Start the application](#start-the-application)
-  + [Modify eslint settings [OPTIONAL]](#modify-eslint-settings--optional-)
+  + [Modify eslint settings [OPTIONAL]](#modify-eslint-settings-optional)
 * [Client](#client)
 * [Server](#server)
 * [Documentation](#documentation)
@@ -367,7 +367,7 @@ The script will take care of starting the Docker container
 npm run docker-rm
 ```
 
-This script will take care of deleting the Docker container created by [docker-run](#run)
+This script will take care of deleting the Docker container created by [docker-run-dev](#run-dev) or [docker-run-prod](#run-prod)
 
 
 
