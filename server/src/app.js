@@ -65,7 +65,7 @@ app.use('/api/v1', apiRoute);
 if (config.useStatic) {
   // Define static folder
   app.use(express.static(config.staticFolder));
-  
+
   // Handle '*' on /api and children
   app.all(['/api', '/api/*'], notFound); // If a request for the /api/* has not been served => return 404
 

@@ -1,28 +1,28 @@
 // Node modules
-const httpStatusCodes = require('http-status-codes')
+const httpStatusCodes = require('http-status-codes');
 
 // Create utility object
 const httpUtils = {
   // Create a response with a default message
-  createResponse: (code, data=undefined) => {
-    let res = {
+  createResponse: (code, data = undefined) => {
+    const res = {
       status: code,
       message: httpStatusCodes.getStatusText(code),
-      data: data
-    }
+      data,
+    };
 
-    return res
+    return res;
   },
   // Create a response with a custom message
-  createResponseWithMessage: (code, message, data=undefined) => {
-    let res = {
+  createResponseWithMessage: (code, message, data = undefined) => {
+    const res = {
       status: code,
-      message: message,
-      data: data
-    }
+      message,
+      data,
+    };
 
-    return res
-  }
-}
+    return res;
+  },
+};
 
-module.exports = httpUtils
+module.exports = httpUtils;
