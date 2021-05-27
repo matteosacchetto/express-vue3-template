@@ -52,7 +52,7 @@ app.use(hpp()); // Prevent HTTP Parameter Pollution
 if (config.useStatic) {
   // Define API middlewares
   app.use('/api', limiter); // Apply the limit to all API requests
-  app.use('/api', responseStatus); // HTTP response status is coherent with message status
+  app.use('/', responseStatus); // HTTP response status is coherent with message status
 } else {
   // Use the custom middlewares on all requests
   app.use('/', limiter); // Apply the limit to all API requests
