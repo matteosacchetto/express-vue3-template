@@ -18,7 +18,7 @@ const httpUtils = require('./lib/http-utils');
 
 // Custom middlewares
 const responseStatus = require('./middlewares/response-status');
-const apiNotFound = require('./middlewares/api-not-found');
+const notFound = require('./routes/not-found');
 
 // Custom routes
 const apiRoute = require('./routes/api');
@@ -65,17 +65,19 @@ app.use('/api/v1', apiRoute);
 if (config.useStatic) {
   // Define static folder
   app.use(express.static(config.staticFolder));
+  
+  // Handle '*' on /api and children
+  app.all(['/api', '/api/*'], notFound); // If a request for the /api/* has not been served => return 404
 
   // Serve SPA
   app.get('*', (req, res) => {
     res.sendFile('index.html', { root: config.staticFolder });
   });
 
-  // Handle '*' on /api
-  app.use('/api', apiNotFound); // If a request for the /api/* has not been served => return 404
+  app.all('*', notFound);
 } else {
-  // Handle '*' on all requests (/)
-  app.use('/', apiNotFound); // If a request for the /* has not been served => return 404
+  // Handle '*' on all requests
+  app.all('*', notFound); // If a request for * has not been served => return 404
 }
 
 if (config.useHttp) {
