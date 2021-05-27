@@ -10,18 +10,18 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 
 // Loading App Configuration
-const config = require('./lib/config.js');
+const config = require('./lib/config');
 
 // Custom modules
-const logger = require('./lib/logger.js');
-const httpUtils = require('./lib/http-utils.js');
+const logger = require('./lib/logger');
+const httpUtils = require('./lib/http-utils');
 
 // Custom middlewares
-const responseStatus = require('./middlewares/response-status.js');
-const apiNotFound = require('./middlewares/api-not-found');
+const responseStatus = require('./middlewares/response-status');
 
 // Custom routes
-const apiRoute = require('./routes/api.js');
+const notFound = require('./routes/not-found');
+const apiRoute = require('./routes/api');
 
 // Define rate-limiter (`max` request per `windowsMs`)
 const limiter = rateLimit({
@@ -52,7 +52,7 @@ app.use(hpp()); // Prevent HTTP Parameter Pollution
 if (config.useStatic) {
   // Define API middlewares
   app.use('/api', limiter); // Apply the limit to all API requests
-  app.use('/api', responseStatus); // HTTP response status is coherent with message status
+  app.use('/', responseStatus); // HTTP response status is coherent with message status
 } else {
   // Use the custom middlewares on all requests
   app.use('/', limiter); // Apply the limit to all API requests
@@ -66,16 +66,18 @@ if (config.useStatic) {
   // Define static folder
   app.use(express.static(config.staticFolder));
 
+  // Handle '*' on /api and children
+  app.all(['/api', '/api/*'], notFound); // If a request for the /api/* has not been served => return 404
+
   // Serve SPA
   app.get('*', (req, res) => {
     res.sendFile('index.html', { root: config.staticFolder });
   });
 
-  // Handle '*' on /api
-  app.use('/api', apiNotFound); // If a request for the /api/* has not been served => return 404
+  app.all('*', notFound);
 } else {
-  // Handle '*' on all requests (/)
-  app.use('/', apiNotFound); // If a request for the /* has not been served => return 404
+  // Handle '*' on all requests
+  app.all('*', notFound); // If a request for * has not been served => return 404
 }
 
 if (config.useHttp) {

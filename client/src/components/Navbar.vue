@@ -1,7 +1,16 @@
 <template>
   <div class="navbar flex items-center justify-center bg-green-500">
     <div
-      class="container px-4 sm:px-6 flex items-center justify-center space-x-4 py-3"
+      class="
+        container
+        px-4
+        sm:px-6
+        flex
+        items-center
+        justify-center
+        space-x-4
+        py-3
+      "
     >
       <router-link
         v-for="link in links"

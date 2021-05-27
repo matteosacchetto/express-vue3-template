@@ -1,9 +1,9 @@
 const mung = require('express-mung');
 
 const responseStatus = mung.json((body, req, res) => {
-  if (body.statusCode) {
+  if (body.status) {
     // Set response status code
-    res.status(body.statusCode);
+    res.status(body.status);
   }
 
   return body;
