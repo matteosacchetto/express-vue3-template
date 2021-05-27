@@ -26,7 +26,7 @@ const apiRoute = require('./routes/api');
 // Define rate-limiter (`max` request per `windowsMs`)
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 1, // limit each IP to 250 requests per windowMs
+  max: 250, // limit each IP to 250 requests per windowMs
   message: httpUtils.createResponse(429), // Too many requests
 });
 
