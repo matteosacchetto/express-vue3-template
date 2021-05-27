@@ -10,18 +10,18 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 
 // Loading App Configuration
-const config = require('./lib/config.js');
+const config = require('./lib/config');
 
 // Custom modules
-const logger = require('./lib/logger.js');
-const httpUtils = require('./lib/http-utils.js');
+const logger = require('./lib/logger');
+const httpUtils = require('./lib/http-utils');
 
 // Custom middlewares
-const responseStatus = require('./middlewares/response-status.js');
+const responseStatus = require('./middlewares/response-status');
 const apiNotFound = require('./middlewares/api-not-found');
 
 // Custom routes
-const apiRoute = require('./routes/api.js');
+const apiRoute = require('./routes/api');
 
 // Define rate-limiter (`max` request per `windowsMs`)
 const limiter = rateLimit({

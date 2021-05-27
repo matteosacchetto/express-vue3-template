@@ -4,7 +4,7 @@ const root = require('app-root-path');
 const path = require('path');
 
 // Load App Configuration
-const config = require('./config.js');
+const config = require('./config');
 
 // Create the logger
 const logger = winston.createLogger({
